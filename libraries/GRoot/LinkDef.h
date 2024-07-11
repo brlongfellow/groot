@@ -21,4 +21,6 @@
 #pragma link C++ class GGaus+;
 #pragma link C++ class GPeak+;
 
+#pragma link C++ class TF1Sum+;
+
 #endif

@@ -24,7 +24,14 @@ class GH1D : public TH1D { //, public TQObject {
 
     GH1D(const TVectorD &v);
     
-    virtual ~GH1D(); 
+    virtual ~GH1D();
+
+    double FitEval(double *,double*);
+    double FitEval2(double *,double*);
+    TF1  *ConstructTF1() const;
+    TF1  *ConstructTF1_shift() const;
+    bool WriteDatFile(const char *outFile); 
+    bool WriteDatFileErrors(const char *outFile);
 
     void Draw(Option_t *opt="") override;
     TH1* DrawCopy(Option_t *opt="", const char *name_postfix="_copy") const override; 

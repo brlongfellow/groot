@@ -440,22 +440,16 @@ bool GCanvas::HandleKeyPress(EEventType event, int px, int py) {
           double xlow = markers.at(0)->X();
           double xhigh = markers.at(1)->X();
           if(xlow>xhigh) std::swap(xlow,xhigh);
-          if(markers.size()>2) {
-            double bg_xlow = markers.at(2)->X();
-            double bg_xhigh = markers.at(3)->X();
+          if(markers.size()>3) {
+            double bg_xlow = markers.at(3)->X();
+            double bg_xhigh = marker.at(4)->X();
             if(bg_xlow>bg_xhigh) std::swap(bg_xlow,bg_xhigh);
             double scale = -1*(double(xhigh)-double(xlow))/(double(bg_xhigh)-double(bg_xlow));
 	    GH1D *proj=0;
-            GH1D *bg_proj=0;
-            if(ggHist->TestBit(GH1D::kProjectionX)) {
-              proj = dynamic_cast<GH2D*>(ggHist->GetParent())->ProjectionY(xlow,xhigh);
-              bg_proj = dynamic_cast<GH2D*>(ggHist->GetParent())->ProjectionY(bg_xlow,bg_xhigh);
-              proj->Add(bg_proj,scale);
-            } else {
-              proj = dynamic_cast<GH2D*>(ggHist->GetParent())->ProjectionX(xlow,xhigh);
-              bg_proj = dynamic_cast<GH2D*>(ggHist->GetParent())->ProjectionX(bg_xlow,bg_xhigh);
-              proj->Add(bg_proj,scale);
-            }
+            if(ggHist->TestBit(GH1D::kProjectionX))
+              proj = dynamic_cast<GH2D*>(ggHist->GetParent())->ProjectionY(xlow,xhigh,bg_xlow,bg_xhigh,scale);
+            else
+              proj = dynamic_cast<GH2D*>(ggHist->GetParent())->ProjectionX(xlow,xhigh,bg_xlow,bg_xhigh,scale);
             GMarker::RemoveAll(ggHist);
             GCanvas *c = new GCanvas;
             proj->Draw();

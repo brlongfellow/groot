@@ -28,7 +28,8 @@ void GMarker::AddTo(TH1 *h, double x, double y,Option_t *opt) {
 
   //we want to limit how many marks are on the histogram.  
   //lets start with two....
-  int fMaxMarkers=2;
+  //int fMaxMarkers=2;
+  int fMaxMarkers=4;
   int markerCount = 0;
   TIter iter(fHist->GetListOfFunctions(),kIterBackward);
   while(TObject *obj=iter.Next()) {

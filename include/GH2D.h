@@ -46,7 +46,10 @@ class GH2D : public TH2D {
     //TH1D* ProjectionY(const char *name="_py",int firstybin=0,int lastybin=-1, Option_t *option="") const;    
     GH1D* ProjectionX(double low=sqrt(-1),double high=sqrt(-1), Option_t *option="");    
     GH1D* ProjectionY(double low=sqrt(-1),double high=sqrt(-1), Option_t *option="");    
-
+    double FitEval(double *,double*);
+    double FitEval2(double *,double*);
+    TF1  *ConstructTF1() const;
+    TF1  *ConstructTF1_shift() const;
 
   private:
     
